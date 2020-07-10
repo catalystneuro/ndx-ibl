@@ -1,0 +1,21 @@
+namespaces:
+- author:
+  - Saksham Sharda
+  contact:
+  - sxs1790@case.edu
+  doc: IBL sessions specific metadata
+  name: ndx-ibl-labmetadata
+  schema:
+  - namespace: core
+    neurodata_types:
+    - ElectricalSeries
+    - TimeSeries
+    - NWBDataInterface
+    - NWBContainer
+  - namespace: hdmf-common
+    neurodata_types:
+    - DynamicTableRegion
+    - VectorData
+    - Data
+  - source: ndx-ibl-labmetadata.extensions.yaml
+  version: 0.1.0
