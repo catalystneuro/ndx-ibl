@@ -35,7 +35,7 @@ setup_args = {
     ],
     'packages': find_packages('src/pynwb'),
     'package_dir': {'': 'src/pynwb'},
-    'package_data': {'ibl_labmetadata': [
+    'package_data': {'ndx_ibl_labmetadata': [
         'spec/ndx-ibl-labmetadata.namespace.yaml',
         'spec/ndx-ibl-labmetadata.extensions.yaml',
     ]},
@@ -51,7 +51,7 @@ def _copy_spec_files(project_dir):
     ns_path = os.path.join(project_dir, 'spec', 'ndx-ibl-labmetadata.namespace.yaml')
     ext_path = os.path.join(project_dir, 'spec', 'ndx-ibl-labmetadata.extensions.yaml')
 
-    dst_dir = os.path.join(project_dir, 'src', 'pynwb', 'ibl_labmetadata', 'spec')
+    dst_dir = os.path.join(project_dir, 'src', 'pynwb', 'ndx_ibl_labmetadata', 'spec')
     if not os.path.exists(dst_dir):
         os.mkdir(dst_dir)
 
