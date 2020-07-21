@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'ndx-ibl-labmetadata'
+project = 'ndx-ibl-metadata'
 copyright = '2020, Saksham Sharda'
 author = 'Saksham Sharda'
 

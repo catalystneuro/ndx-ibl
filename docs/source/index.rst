@@ -1,4 +1,4 @@
-Specification for the ndx-ibl-labmetadata extension
+Specification for the ndx-ibl-metadata extension
 ==================================
 
 .. toctree::

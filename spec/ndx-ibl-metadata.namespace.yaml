@@ -4,12 +4,12 @@ namespaces:
   contact:
   - sxs1790@case.edu
   doc: IBL sessions specific metadata
-  name: ndx-ibl-labmetadata
+  name: ndx-ibl-metadata
   schema:
   - namespace: core
     neurodata_types:
     - LabMetaData
     - Subject
     - Device
-  - source: ndx-ibl-labmetadata.extensions.yaml
+  - source: ndx-ibl-metadata.extensions.yaml
   version: 0.1.0

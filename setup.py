@@ -21,7 +21,7 @@ except Exception:
     readme = ""
 
 setup_args = {
-    'name': 'ndx-ibl-labmetadata',
+    'name': 'ndx-ibl-metadata',
     'version': '0.1.0',
     'description': 'IBL sessions specific metadata',
     'long_description': readme,
@@ -35,9 +35,9 @@ setup_args = {
     ],
     'packages': find_packages('src/pynwb'),
     'package_dir': {'': 'src/pynwb'},
-    'package_data': {'ndx_ibl_labmetadata': [
-        'spec/ndx-ibl-labmetadata.namespace.yaml',
-        'spec/ndx-ibl-labmetadata.extensions.yaml',
+    'package_data': {'ndx_ibl_metadata': [
+        'spec/ndx-ibl-metadata.namespace.yaml',
+        'spec/ndx-ibl-metadata.extensions.yaml',
     ]},
     'classifiers': [
         "Intended Audience :: Developers",
@@ -48,10 +48,10 @@ setup_args = {
 
 
 def _copy_spec_files(project_dir):
-    ns_path = os.path.join(project_dir, 'spec', 'ndx-ibl-labmetadata.namespace.yaml')
-    ext_path = os.path.join(project_dir, 'spec', 'ndx-ibl-labmetadata.extensions.yaml')
+    ns_path = os.path.join(project_dir, 'spec', 'ndx-ibl-metadata.namespace.yaml')
+    ext_path = os.path.join(project_dir, 'spec', 'ndx-ibl-metadata.extensions.yaml')
 
-    dst_dir = os.path.join(project_dir, 'src', 'pynwb', 'ndx_ibl_labmetadata', 'spec')
+    dst_dir = os.path.join(project_dir, 'src', 'pynwb', 'ndx_ibl_metadata', 'spec')
     if not os.path.exists(dst_dir):
         os.mkdir(dst_dir)
 

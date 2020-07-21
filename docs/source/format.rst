@@ -1,8 +1,8 @@
 
-.. _ndx-ibl-labmetadata:
+.. _ndx-ibl-metadata:
 
 *******************
-ndx-ibl-labmetadata
+ndx-ibl-metadata
 *******************
 
 Version |release| |today|

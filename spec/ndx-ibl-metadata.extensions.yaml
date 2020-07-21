@@ -57,6 +57,16 @@ groups:
     dtype: text
     doc: extended_qc
     quantity: '?'
+  - name: wateradmin_session_related
+    dtype: text
+    shape:
+    - null
+    doc: wateradmin_session_related
+    quantity: '?'
+  - name: json
+    dtype: text
+    doc: json
+    quantity: '?'
 - neurodata_type_def: IblSubject
   neurodata_type_inc: Subject
   name: Ibl_subject_data
@@ -128,6 +138,18 @@ groups:
   - name: remaining_water
     dtype: float
     doc: remaining water
+    quantity: '?'
+  - name: weighings
+    dtype: text
+    shape:
+    - null
+    doc: weighings
+    quantity: '?'
+  - name: water_administrations
+    dtype: text
+    shape:
+    - null
+    doc: water_administrations
     quantity: '?'
 - neurodata_type_def: IblProbes
   neurodata_type_inc: Device

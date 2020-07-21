@@ -5,7 +5,7 @@ import unittest
 
 from numpy.testing import assert_equal
 
-from src.pynwb.ndx_ibl_labmetadata import IblSessionData, IblSubject, IblProbes
+from src.pynwb.ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
 
 temp_subject = {
     "nickname": "437",

@@ -1,4 +1,4 @@
-# ndx-ibl-labmetadata Extension for NWB
+# ndx-ibl-metadata Extension for NWB
 
 ## Installation
 
