@@ -10,7 +10,7 @@ from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttrib
 def main():
     ns_builder = NWBNamespaceBuilder(
         doc="""IBL sessions specific metadata""",
-        name="""ndx-ibl-labmetadata""",
+        name="""ndx-ibl-metadata""",
         version="""0.1.0""",
         author=list(map(str.strip, """Saksham Sharda""".split(','))),
         contact=list(map(str.strip, """sxs1790@case.edu""".split(',')))
@@ -33,6 +33,9 @@ def main():
         {'name': 'url', 'doc': 'url of the session metadata', 'dtype': 'text', 'quantity': '?', 'default_value': ''},
         {'name': 'qc', 'doc': 'qc', 'dtype': 'text', 'quantity': '?'},
         {'name': 'extended_qc', 'doc': 'extended_qc', 'dtype': 'text', 'quantity': '?', 'default_value': None},
+        {'name': 'wateradmin_session_related', 'doc': 'wateradmin_session_related', 'dtype': 'text', 'quantity': '?',
+         'shape': (None,)},
+        {'name': 'json', 'doc': 'json', 'dtype': 'text', 'quantity': '?'}
         ]
     ibl_session = NWBGroupSpec(
         name='Ibl_session_data',
@@ -60,7 +63,10 @@ def main():
         {'name': 'alive', 'doc': 'alive/dead', 'dtype': 'bool', 'default_value': True, 'required': False},
         {'name': 'last_water_restriction', 'doc': 'last water restriction', 'dtype': 'text', 'quantity': '?'},
         {'name': 'expected_water', 'doc': 'expected water', 'dtype': 'float', 'quantity': '?'},
-        {'name': 'remaining_water', 'doc': 'remaining water', 'dtype': 'float', 'quantity': '?'}
+        {'name': 'remaining_water', 'doc': 'remaining water', 'dtype': 'float', 'quantity': '?'},
+        {'name': 'weighings', 'doc': 'weighings', 'dtype': 'text', 'quantity': '?','shape': (None,)},
+        {'name': 'water_administrations', 'doc': 'water_administrations', 'dtype': 'text', 'quantity': '?',
+         'shape': (None,)}
     ]
 
     ibl_subject = NWBGroupSpec(
