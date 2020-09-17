@@ -69,7 +69,7 @@ groups:
     quantity: '?'
 - neurodata_type_def: IblSubject
   neurodata_type_inc: Subject
-  name: Ibl_subject_data
+  name: Subject
   doc: IBL mice data
   attributes:
   - name: alive

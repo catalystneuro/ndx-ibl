@@ -70,7 +70,7 @@ def main():
     ]
 
     ibl_subject = NWBGroupSpec(
-        name='Ibl_subject_data',
+        name='Subject',
         neurodata_type_def='IblSubject',
         neurodata_type_inc='Subject',
         doc=('IBL mice data'),
