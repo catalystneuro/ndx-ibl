@@ -4,10 +4,6 @@ groups:
   name: Ibl_session_data
   doc: IBL sessions metadata
   datasets:
-  - name: subject
-    dtype: text
-    doc: subject name
-    quantity: '?'
   - name: location
     dtype: text
     doc: location

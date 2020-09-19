@@ -21,7 +21,6 @@ def main():
     ns_builder.include_type('Device', namespace='core')
 
     session_data = [
-        {'name': 'subject', 'doc': 'subject name', 'dtype': 'text', 'quantity': '?'},
         {'name': 'location', 'doc': 'location', 'dtype': 'text', 'quantity': '?'},
         {'name': 'procedures', 'doc': 'session related procedures', 'dtype': 'text', 'quantity': '?', 'shape': (None,)},
         {'name': 'project', 'doc': 'project this session is part of', 'dtype': 'text', 'quantity': '?'},
