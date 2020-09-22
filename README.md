@@ -31,51 +31,51 @@ subject_table = one.alyx.rest('subjects/' + session_info['subject'],'list')
 probe_list = session_info['probe_insertion']
 # create session related data dict:
 session_data = {
-    "location": session_info.get('location',""),
-    "project": session_info.get('project',""),
-    "type": session_info.get('type',""),
-    "number": session_info.get('number',""),
+    "location": session_info.get('location'),
+    "project": session_info.get('project'),
+    "type": session_info.get('type'),
+    "number": session_info.get('number'),
     "end_time": datetime.datetime(session_info.get('location',datetime.datetime.utcnow().strftime('%Y-%m-%d')),'%Y-%m-%d'),
     "parent_session": session_info.get('parent_session',None),
-    "url": session_info.get('url',""),
-    "extended_qc": session_info.get('extended_qc',None),
-    "qc": session_info.get('qc',""),
+    "url": session_info.get('url'),
+    "extended_qc": session_info.get('extended_qc'),
+    "qc": session_info.get('qc'),
     "wateradmin_session_related":session_info.get('wateradmin_session_related',[]),
-    "json": session_info.get('json',"")
+    "json": session_info.get('json')
 }
 
-subject_data = {'age': str(subject_table.get('age_weeks', '')),
-                'subject_id' : subject_table.get('id', ''),
-                'description': subject_table.get('description', ''),
+subject_data = {'age': str(subject_table.get('age_weeks')),
+                'subject_id' : subject_table.get('id'),
+                'description': subject_table.get('description'),
                 'genotype': ','.join(subject_table.get('genotype'), []),
-                'sex': subject_table.get('sex', ''),
-                'species': subject_table.get('species', ''),
-                'weight': str(subject_table.get('reference_weight', '')),
-                'date_of_birth': datetime.datetime.strptime(subject_table.get('birth_date'), format='%Y-%m-%d')
-                'nickname': subject_table.get('nickname', ''),
-                'url': subject_table.get('url', ''),
-                "responsible_user": subject_table.get('responsible_user', ''),
-                "death_date": subject_table.get('death_date', ''),
-                "litter": subject_table.get('litter', ''),
-                "strain": subject_table.get('strain', ''),
-                "source": subject_table.get('source', ''),
-                "line": subject_table.get('line', ''),
-                "projects": subject_table.get('projects', ''),
-                "session_projects": subject_table.get('session_projects', ''),
-                "lab": subject_table.get('lab', ''),
-                "alive": subject_table.get('alive', False),
+                'sex': subject_table.get('sex'),
+                'species': subject_table.get('species'),
+                'weight': str(subject_table.get('reference_weight')),
+                'date_of_birth': datetime.datetime.strptime(subject_table.get('birth_date'), format='%Y-%m-%d'),
+                'nickname': subject_table.get('nickname'),
+                'url': subject_table.get('url'),
+                "responsible_user": subject_table.get('responsible_user'),
+                "death_date": subject_table.get('death_date'),
+                "litter": subject_table.get('litter'),
+                "strain": subject_table.get('strain'),
+                "source": subject_table.get('source'),
+                "line": subject_table.get('line'),
+                "projects": subject_table.get('projects'),
+                "session_projects": subject_table.get('session_projects'),
+                "lab": subject_table.get('lab'),
+                "alive": subject_table.get('alive'),
                 "last_water_restriction": subject_table.get('last_water_restriction', null),
-                "expected_water": subject_table.get('expected_water', np.nan),
-                "remaining_water": subject_table.get('remaining_water', np.nan),
+                "expected_water": subject_table.get('expected_water'),
+                "remaining_water": subject_table.get('remaining_water'),
                 'weighings': [str(i) for i in subject_table['IBLSubject']['weighings']],
                 'water_administrations': [str(i) for i in subject_table['water_administrations']]
                 }
 
 probes_data = []
 for probe in probe_list:
-    probes_data.append({'id': probe.get('ib',''),
-                        'model': probe.get('model',''),
-                        'name': probe.get('name',''),
+    probes_data.append({'id': probe.get('ib'),
+                        'model': probe.get('model'),
+                        'name': probe.get('name'),
                         'trajectory_estimate': str(probe.get('trajectory_estimate',''))
                         })
 
@@ -83,10 +83,10 @@ nwbfile_data = {'session_start_time': datetime.datetime.strptime(session_info.ge
                 'experiment_description': session_info.get('project'),
                 'identifier': uuid.uuid1(),
                 'session_id': eid,
-                'experimenter': session_info.get('users',''),
-                'protocol': session_info.get('task_protocol',''),
-                'lab': session_info.get('lab',''),
-                'notes': session_info.get('narrative',''),
+                'experimenter': session_info.get('users'),
+                'protocol': session_info.get('task_protocol'),
+                'lab': session_info.get('lab'),
+                'notes': session_info.get('narrative'),
                 'session_description': ','.join(session_info.get('procedures',[]))
 }
 
