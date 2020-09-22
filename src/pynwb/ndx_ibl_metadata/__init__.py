@@ -24,3 +24,13 @@ load_namespaces(ibl_metadata_specpath)
 IblSessionData = get_class('IblSessionData', 'ndx-ibl-metadata')
 IblSubject = get_class('IblSubject', 'ndx-ibl-metadata')
 IblProbes = get_class('IblProbes', 'ndx-ibl-metadata')
+
+
+@register_map(IblSubject)
+class IblSubjectMap(ObjectMapper):
+    
+    @ObjectMapper.constructor_arg('death_date')
+    def dateconversion(self, builder, manager):
+        datestr = builder.get('death_date').data
+        date = dateutil_parse(datestr)
+        return date
