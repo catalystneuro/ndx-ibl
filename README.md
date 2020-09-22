@@ -15,7 +15,7 @@ pip install ibllib
 #### Python usage: 
 
 **Using ONE API**
-Use the ONE documentation to learn about ONE specific search keywords to retrieve and EID of interest. THen retrieve the 
+Use the ONE documentation to learn about ONE specific search keywords to retrieve and EID of interest. Then retrieve the 
 info and populate like shown below. Alternatively, you can can also create a dictionary by manually entering correct data.
 ```python
 import datetime
@@ -39,11 +39,11 @@ session_data = {
     "type": session_info.get('type'),
     "number": session_info.get('number'),
     "end_time": datetime.datetime(session_info.get('location',datetime.datetime.utcnow().strftime('%Y-%m-%d')),'%Y-%m-%d'),
-    "parent_session": session_info.get('parent_session',None),
+    "parent_session": session_info.get('parent_session'),
     "url": session_info.get('url'),
     "extended_qc": session_info.get('extended_qc'),
     "qc": session_info.get('qc'),
-    "wateradmin_session_related":session_info.get('wateradmin_session_related',[]),
+    "wateradmin_session_related":session_info.get('wateradmin_session_related', []),
     "json": session_info.get('json')
 }
 
