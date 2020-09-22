@@ -1,20 +1,6 @@
 import os
-from dateutil.parser import parse as dateutil_parse
+from pynwb import load_namespaces, get_class
 
-from hdmf.build import ObjectMapper
-from pynwb import load_namespaces, get_class, register_map
-
-
-# Set path of the namespace.yaml file to the expected install location
-# ibl_metadata_specpath = os.path.join(
-#     os.path.dirname(__file__),
-#     'spec',
-#     'ndx-ibl-metadata.namespace.yaml'
-# )
-
-# If the extension has not been installed yet but we are running directly from
-# the git repo
-# if not os.path.exists(ibl_metadata_specpath):
 ibl_metadata_specpath = os.path.abspath(os.path.join(
     os.path.dirname(__file__),
     '..', '..', '..',
@@ -28,13 +14,3 @@ load_namespaces(ibl_metadata_specpath)
 IblSessionData = get_class('IblSessionData', 'ndx-ibl-metadata')
 IblSubject = get_class('IblSubject', 'ndx-ibl-metadata')
 IblProbes = get_class('IblProbes', 'ndx-ibl-metadata')
-
-
-@register_map(IblSubject)
-class IblSubjectMap(ObjectMapper):
-    
-    @ObjectMapper.constructor_arg('death_date')
-    def dateconversion(self, builder, manager):
-        datestr = builder.get('death_date').data
-        date = dateutil_parse(datestr)
-        return date
