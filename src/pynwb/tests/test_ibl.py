@@ -1,10 +1,11 @@
 import datetime
 import os
-from pynwb import NWBHDF5IO, NWBFile
-import tempfile
 import shutil
-from src.pynwb.ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
-import pytest
+import tempfile
+
+from ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
+from pynwb import NWBHDF5IO, NWBFile
+import h5py
 
 temp_subject = {
     "nickname": "NYU-21",
@@ -178,11 +179,27 @@ class TestExtension:
         with NWBHDF5IO(saveloc, mode='r', load_namespaces=True) as io:
             read_nwbfile = io.read()
             for i, j in temp_sessions.items():
-                if getattr(read_nwbfile.lab_meta_data, i, None):
-                    assert getattr(read_nwbfile.lab_meta_data, i) == j
+                attr_loop = getattr(read_nwbfile.lab_meta_data['Ibl_session_data'], i, None)
+                if attr_loop:
+                    if isinstance(attr_loop, h5py._hl.dataset.Dataset):
+                        assert all(getattr(read_nwbfile.lab_meta_data['Ibl_session_data'], i).value == j)
+                    else:
+                        assert getattr(read_nwbfile.lab_meta_data['Ibl_session_data'], i) == j
             for i, j in temp_subject.items():
-                if getattr(read_nwbfile.subject, i, None):
-                    assert getattr(read_nwbfile.subject, i) == j
+                attr_loop = getattr(read_nwbfile.subject, i, None)
+                if attr_loop:
+                    if isinstance(attr_loop, h5py._hl.dataset.Dataset):
+                        assert all(getattr(read_nwbfile.subject, i).value == j)
+                    else:
+                        assert getattr(read_nwbfile.subject, i) == j
+
+            for no,probe_name in enumerate(probe_names):
+                for i, j in temp_probes[no].items():
+                    attr_loop = getattr(read_nwbfile.devices[probe_name], i, None)
+                    if attr_loop:
+                        if isinstance(attr_loop, h5py._hl.dataset.Dataset):
+                            assert all(getattr(read_nwbfile.devices[probe_name], i).value == j)
+                        else:
+                            assert getattr(read_nwbfile.devices[probe_name], i) == j
 
         shutil.rmtree(testdir)
-        subject_table=dict()
