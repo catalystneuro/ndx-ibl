@@ -8,12 +8,6 @@ groups:
     dtype: text
     doc: location
     quantity: '?'
-  - name: procedures
-    dtype: text
-    shape:
-    - null
-    doc: session related procedures
-    quantity: '?'
   - name: project
     dtype: text
     doc: project this session is part of
@@ -31,10 +25,6 @@ groups:
   - name: end_time
     dtype: text
     doc: session end time
-    quantity: '?'
-  - name: narrative
-    dtype: text
-    doc: narrative
     quantity: '?'
   - name: parent_session
     dtype: text

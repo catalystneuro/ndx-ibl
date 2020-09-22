@@ -3,8 +3,6 @@
 import os.path
 
 from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttributeSpec
-# TODO: import the following spec classes as needed
-# from pynwb.spec import NWBDatasetSpec, NWBLinkSpec, NWBDtypeSpec, NWBRefSpec
 
 
 def main():
@@ -22,12 +20,10 @@ def main():
 
     session_data = [
         {'name': 'location', 'doc': 'location', 'dtype': 'text', 'quantity': '?'},
-        {'name': 'procedures', 'doc': 'session related procedures', 'dtype': 'text', 'quantity': '?', 'shape': (None,)},
         {'name': 'project', 'doc': 'project this session is part of', 'dtype': 'text', 'quantity': '?'},
         {'name': 'type', 'doc': 'type of session', 'dtype': 'text', 'quantity': '?', 'default_value': 'Experiment'},
         {'name': 'number', 'doc': 'session number', 'dtype': 'int', 'quantity': '?', 'default_value': 1},
         {'name': 'end_time', 'doc': 'session end time', 'dtype': 'text', 'quantity': '?'},
-        {'name': 'narrative', 'doc': 'narrative', 'dtype': 'text', 'quantity': '?'},
         {'name': 'parent_session', 'doc': 'parent session', 'dtype': 'text', 'quantity': '?', 'default_value': None},
         {'name': 'url', 'doc': 'url of the session metadata', 'dtype': 'text', 'quantity': '?', 'default_value': ''},
         {'name': 'qc', 'doc': 'qc', 'dtype': 'text', 'quantity': '?'},
