@@ -67,7 +67,7 @@ subject_data = {'age': str(subject_table.get('age_weeks')),
                 "session_projects": subject_table.get('session_projects'),
                 "lab": subject_table.get('lab'),
                 "alive": subject_table.get('alive'),
-                "last_water_restriction": subject_table.get('last_water_restriction', null),
+                "last_water_restriction": subject_table.get('last_water_restriction'),
                 "expected_water": subject_table.get('expected_water'),
                 "remaining_water": subject_table.get('remaining_water'),
                 'weighings': [str(i) for i in subject_table['IBLSubject']['weighings']],
@@ -108,7 +108,7 @@ nwbfile.add_lab_meta_data(session_nwb)
 for probe in probe_nwb_list:
     nwbfile.add_device(probe)
 
-with NWBHDF5IO(saveloc, mode='w') as io:
+with NWBHDF5IO('testfile.nwb', mode='w') as io:
     io.write(nwbfile)
 
 ```

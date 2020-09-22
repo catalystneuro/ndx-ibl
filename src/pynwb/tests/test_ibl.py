@@ -2,7 +2,6 @@ import datetime
 import os
 import shutil
 import tempfile
-
 from ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
 from pynwb import NWBHDF5IO, NWBFile
 import h5py
