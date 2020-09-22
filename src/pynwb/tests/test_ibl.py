@@ -1,10 +1,10 @@
 import datetime
 import os
-from pynwb import NWBHDF5IO, NWBFile
-import tempfile
 import shutil
-from src.pynwb.ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
-import pytest
+import tempfile
+
+from ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
+from pynwb import NWBHDF5IO, NWBFile
 
 temp_subject = {
     "nickname": "NYU-21",
