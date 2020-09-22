@@ -21,7 +21,7 @@ info and populate like shown below. Alternatively, you can can also create a dic
 import datetime
 import os
 from pynwb import NWBHDF5IO, NWBFile
-from ibllib.one import ONE
+from oneibl.one import ONE
 import uuid
 from ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
 # retrieve eid of interest:
@@ -38,23 +38,23 @@ session_data = {
     "project": session_info.get('project'),
     "type": session_info.get('type'),
     "number": session_info.get('number'),
-    "end_time": datetime.datetime(session_info.get('location',datetime.datetime.utcnow().strftime('%Y-%m-%d')),'%Y-%m-%d'),
+    "end_time": session_info.get('end_time'),
     "parent_session": session_info.get('parent_session'),
     "url": session_info.get('url'),
-    "extended_qc": session_info.get('extended_qc'),
+    "extended_qc": str(session_info.get('extended_qc')),
     "qc": session_info.get('qc'),
-    "wateradmin_session_related":session_info.get('wateradmin_session_related', []),
-    "json": session_info.get('json')
+    "wateradmin_session_related":[str(i) for i in session_info.get('wateradmin_session_related', [])],
+    "json": str(session_info.get('json'))
 }
 
 subject_data = {'age': str(subject_table.get('age_weeks')),
                 'subject_id' : subject_table.get('id'),
                 'description': subject_table.get('description'),
-                'genotype': ','.join(subject_table.get('genotype'), []),
+                'genotype': ','.join(subject_table.get('genotype', [])),
                 'sex': subject_table.get('sex'),
                 'species': subject_table.get('species'),
                 'weight': str(subject_table.get('reference_weight')),
-                'date_of_birth': datetime.datetime.strptime(subject_table.get('birth_date'), format='%Y-%m-%d'),
+                'date_of_birth': subject_table.get('date_of_birth'),
                 'nickname': subject_table.get('nickname'),
                 'url': subject_table.get('url'),
                 "responsible_user": subject_table.get('responsible_user'),
@@ -70,7 +70,7 @@ subject_data = {'age': str(subject_table.get('age_weeks')),
                 "last_water_restriction": subject_table.get('last_water_restriction'),
                 "expected_water": subject_table.get('expected_water'),
                 "remaining_water": subject_table.get('remaining_water'),
-                'weighings': [str(i) for i in subject_table['IBLSubject']['weighings']],
+                'weighings': [str(i) for i in subject_table['weighings']],
                 'water_administrations': [str(i) for i in subject_table['water_administrations']]
                 }
 
@@ -79,12 +79,12 @@ for probe in probe_list:
     probes_data.append({'id': probe.get('ib'),
                         'model': probe.get('model'),
                         'name': probe.get('name'),
-                        'trajectory_estimate': str(probe.get('trajectory_estimate',''))
+                        'trajectory_estimate': [str(i) for i in probe.get('trajectory_estimate',[])]
                         })
 
-nwbfile_data = {'session_start_time': datetime.datetime.strptime(session_info.get('start_time'),'%Y-%m-%dT%X'),
+nwbfile_data = {'session_start_time': datetime.datetime.strptime(session_info.get('start_time').split('.')[0],'%Y-%m-%dT%X'),
                 'experiment_description': session_info.get('project'),
-                'identifier': uuid.uuid1(),
+                'identifier': str(uuid.uuid1()),
                 'session_id': eid,
                 'experimenter': session_info.get('users'),
                 'protocol': session_info.get('task_protocol'),
@@ -97,7 +97,7 @@ nwbfile_data = {'session_start_time': datetime.datetime.strptime(session_info.ge
 session_nwb = IblSessionData(**session_data)
 subject_nwb = IblSubject(**subject_data)
 probe_nwb_list = []
-for probe in probe_list:
+for probe in probes_data:
     name = probe.pop('name')
     probe_nwb_list.append(IblProbes(name, **probe))
 
