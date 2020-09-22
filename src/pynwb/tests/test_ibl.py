@@ -1,20 +1,19 @@
 import datetime
-import os, sys
+import os
 from pynwb import NWBHDF5IO, NWBFile
-import unittest
-
-from numpy.testing import assert_equal
-
+import tempfile
+import shutil
 from src.pynwb.ndx_ibl_metadata import IblSessionData, IblSubject, IblProbes
+import pytest
 
 temp_subject = {
-    "nickname": "437",
+    "nickname": "NYU-21",
     "url": "https://dev.alyx.internationalbrainlab.org/subjects/437",
     "subject_id": "c7a4c517-61b9-48ec-bfbe-30a8f419b5bb",
     "responsible_user": "ines",
     "date_of_birth": datetime.datetime(2018, 6, 26, tzinfo=datetime.timezone.utc),
     "age": "25",
-    "death_date": "2018-12-21",
+    "death_date": datetime.datetime(2018, 12, 21, tzinfo=datetime.timezone.utc).strftime('%Y-%m-%d'),
     "species": "Laboratory mouse",
     "sex": "M",
     "litter": None,
@@ -39,28 +38,32 @@ temp_subject = {
   }
 
 temp_sessions = {
-    "subject": "NYU-21",
     "location": "_iblrig_angelakilab_behavior_2",
-    "procedures": [
-        "Behavior training/tasks"
-    ],
     "project": "ibl_neuropixel_brainwide_01",
     "type": "Experiment",
     "number": 1,
-    "end_time": datetime.datetime.utcnow().strftime('%Y-%M-%dT%X'),
-    "narrative": "",
+    "end_time": datetime.datetime.utcnow().strftime('%Y-%m-%d'),
     "parent_session": None,
     "url": "https://dev.alyx.internationalbrainlab.org/sessions/2183d76f-3469-4a4b-be08-5f0e58ca797d",
     "extended_qc": None,
     "qc": "20",
+    "wateradmin_session_related":[
+      "{'id': 'a8fa34b7-5c77-4ede-af67-ed202220131e', 'name': '', 'water_type': 'Water 10% Sucrose', 'water_administered': 1.248}"
+    ],
+    "json": "json string"
 }
 temp_session_nwbfile = {
+    "session_id": "da188f2c-553c-4e04-879b-c9ea2d1b9a93",
+    "identifier": "da188f2c-553c-4e04-879b-c9ea2d1b9a93",
     "keywords": ["angelakilab", "jeanpaul", "IBL"],
     "experiment_description": "ibl_neuropixel_brainwide_01",
     "experimenter":"jeanpaul",
     "lab":"angelakilab",
+    "institution": "Cold Spring Harbor Laboratory",
     "protocol":"_iblrig_tasks_trainingChoiceWorld6.4.0",
-    "notes":"Behavior training/tasks"
+    "notes":"",
+    "session_description":"Behavior training/tasks",
+    "session_start_time": datetime.datetime.now(datetime.timezone.utc)
 }
 
 temp_probes = [
@@ -136,47 +139,50 @@ temp_probes = [
     }
   ]
 
-def set_up_nwbfile(**kwargs):
-    nwbfile = NWBFile(
-        session_description='session_description',
-        identifier='identifier',
-        session_start_time=datetime.datetime.now(datetime.timezone.utc),
-        **kwargs
-    )
-    return nwbfile
-#--Sessions test
-session_data = IblSessionData(**temp_sessions)
-for i,j in temp_sessions.items():
-    assert_equal(getattr(session_data,i),j)
-#--Subject test
-subject_data = IblSubject(**temp_subject)
-for i,j in temp_subject.items():
-    assert_equal(getattr(subject_data,i),j)
-#--Probes test
-probe_data = []
-for c,i in enumerate(temp_probes):
-    name = i.pop('name')
-    for y, l in enumerate(i['trajectory_estimate']):
-        i['trajectory_estimate'][y] = str(l)
-    probe_data.append(IblProbes(name, **i))
-    for j,k in i.items():
-        assert_equal(getattr(probe_data[c], j),k)
+probe_names = []
+for c, i in enumerate(temp_probes):
+    probe_names.append(i.pop('name'))
+    for j, l in enumerate(i['trajectory_estimate']):
+        temp_probes[c]['trajectory_estimate'][j] = str(l)
 
 
-nwbfile = set_up_nwbfile(**temp_session_nwbfile)
-nwbfile.add_lab_meta_data(session_data)
-nwbfile.subject = subject_data
-for i in probe_data:
-    nwbfile.add_device(i)
+class TestExtension:
 
-with NWBHDF5IO('test.nwb', mode='w') as io:
-    io.write(nwbfile)
+    def test_sessions(self):
+        session_nwb = IblSessionData(**temp_sessions)
+        for i, j in temp_sessions.items():
+            assert getattr(session_nwb, i) == j
 
-with NWBHDF5IO('test.nwb', mode='r', load_namespaces=True) as io:
-    read_nwbfile = io.read()
-    for i, j in temp_sessions.items():
-        if getattr(read_nwbfile.lab_meta_data,i,None):
-            assert_equal(getattr(read_nwbfile.lab_meta_data, i), j)
-    for i, j in temp_subject.items():
-        if getattr(read_nwbfile.subject, i, None):
-            assert_equal(getattr(read_nwbfile.subject, i), j)
+    def test_subject(self):
+        subject_nwb = IblSubject(**temp_subject)
+        for i, j in temp_subject.items():
+            assert getattr(subject_nwb, i) == j
+
+    def test_probes(self):
+        for i,name in zip(temp_probes,probe_names):
+            probe_nwb = IblProbes(name, **i)
+            for j, k in i.items():
+                assert getattr(probe_nwb, j) == k
+
+    def test_nwbfileio(self):
+        testdir = tempfile.mkdtemp()
+        nwbfile = NWBFile(**temp_session_nwbfile)
+        nwbfile.add_lab_meta_data(IblSessionData(**temp_sessions))
+        nwbfile.subject = IblSubject(**temp_subject)
+        for i, name in zip(temp_probes, probe_names):
+            nwbfile.add_device(IblProbes(name, **i))
+        saveloc = os.path.join(testdir, 'test.nwb')
+        with NWBHDF5IO(saveloc, mode='w') as io:
+            io.write(nwbfile)
+
+        with NWBHDF5IO(saveloc, mode='r', load_namespaces=True) as io:
+            read_nwbfile = io.read()
+            for i, j in temp_sessions.items():
+                if getattr(read_nwbfile.lab_meta_data, i, None):
+                    assert getattr(read_nwbfile.lab_meta_data, i) == j
+            for i, j in temp_subject.items():
+                if getattr(read_nwbfile.subject, i, None):
+                    assert getattr(read_nwbfile.subject, i) == j
+
+        shutil.rmtree(testdir)
+        subject_table=dict()
