@@ -21,13 +21,13 @@ def main():
     session_data = [
         {'name': 'location', 'doc': 'location', 'dtype': 'text', 'quantity': '?'},
         {'name': 'project', 'doc': 'project this session is part of', 'dtype': 'text', 'quantity': '?'},
-        {'name': 'type', 'doc': 'type of session', 'dtype': 'text', 'quantity': '?', 'default_value': 'Experiment'},
-        {'name': 'number', 'doc': 'session number', 'dtype': 'int', 'quantity': '?', 'default_value': 1},
+        {'name': 'type', 'doc': 'type of session', 'dtype': 'text', 'quantity': '?'},
+        {'name': 'number', 'doc': 'session number', 'dtype': 'int', 'quantity': '?'},
         {'name': 'end_time', 'doc': 'session end time', 'dtype': 'text', 'quantity': '?'},
-        {'name': 'parent_session', 'doc': 'parent session', 'dtype': 'text', 'quantity': '?', 'default_value': None},
-        {'name': 'url', 'doc': 'url of the session metadata', 'dtype': 'text', 'quantity': '?', 'default_value': ''},
+        {'name': 'parent_session', 'doc': 'parent session', 'dtype': 'text', 'quantity': '?'},
+        {'name': 'url', 'doc': 'url of the session metadata', 'dtype': 'text', 'quantity': '?'},
         {'name': 'qc', 'doc': 'qc', 'dtype': 'text', 'quantity': '?'},
-        {'name': 'extended_qc', 'doc': 'extended_qc', 'dtype': 'text', 'quantity': '?', 'default_value': None},
+        {'name': 'extended_qc', 'doc': 'extended_qc', 'dtype': 'text', 'quantity': '?'},
         {'name': 'wateradmin_session_related', 'doc': 'wateradmin_session_related', 'dtype': 'text', 'quantity': '?',
          'shape': (None,)},
         {'name': 'json', 'doc': 'json', 'dtype': 'text', 'quantity': '?'}
@@ -45,7 +45,7 @@ def main():
 
     subject_data = [
         {'name': 'nickname', 'doc': 'name of the mouse', 'dtype': 'text', 'quantity': '?'},
-        {'name': 'url', 'doc': 'url location of the subject metadata', 'dtype': 'text', 'quantity': '?', 'default_value': ''},
+        {'name': 'url', 'doc': 'url location of the subject metadata', 'dtype': 'text', 'quantity': '?'},
         {'name': 'responsible_user', 'doc': 'user in charge of the subject', 'dtype': 'text', 'quantity': '?'},
         {'name': 'death_date', 'doc': 'date of sacrifice of the mouse', 'dtype': 'text', 'quantity': '?'},
         {'name': 'litter', 'doc': 'litter of the mouse', 'dtype': 'text', 'quantity': '?'},
@@ -55,7 +55,7 @@ def main():
         {'name': 'projects', 'doc': 'ibl project involving this mouse', 'dtype': 'text', 'quantity': '?', 'shape': (None,)},
         {'name': 'session_projects', 'doc': 'session projects', 'dtype': 'text', 'quantity': '?', 'shape': (None,)},
         {'name': 'lab', 'doc': 'lab', 'dtype': 'text', 'quantity': '?'},
-        {'name': 'alive', 'doc': 'alive/dead', 'dtype': 'bool', 'default_value': True, 'required': False},
+        {'name': 'alive', 'doc': 'alive/dead', 'dtype': 'bool', 'required': False},
         {'name': 'last_water_restriction', 'doc': 'last water restriction', 'dtype': 'text', 'quantity': '?'},
         {'name': 'expected_water', 'doc': 'expected water', 'dtype': 'float', 'quantity': '?'},
         {'name': 'remaining_water', 'doc': 'remaining water', 'dtype': 'float', 'quantity': '?'},
@@ -70,7 +70,7 @@ def main():
         neurodata_type_inc='Subject',
         doc=('IBL mice data'),
         attributes=[NWBAttributeSpec(
-            **{'name': 'alive', 'doc': 'alive/dead', 'dtype': 'bool', 'default_value': True, 'required': False}
+            **{'name': 'alive', 'doc': 'alive/dead', 'dtype': 'bool', 'required': False}
         )]
     )
 
