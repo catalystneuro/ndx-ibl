@@ -50,6 +50,8 @@ temp_sessions = {
     "wateradmin_session_related":[
       "{'id': 'a8fa34b7-5c77-4ede-af67-ed202220131e', 'name': '', 'water_type': 'Water 10% Sucrose', 'water_administered': 1.248}"
     ],
+    "notes": [
+        '{"user": "7339a9d0-b54c-4575-89e2-68adb92b7246", "date_time": "2020-03-24T18:05:20", "content_type": 26, "object_id": "da188f2c-553c-4e04-879b-c9ea2d1b9a93", "text": "inserted probe00(L) first, painted back with diI, two spots I wanted were not available b/c of the honeycomb, so I went in the location I chose, ended up being 3rd penetration here, took 2 tries to penetrate but went in pretty easily, looks like good activity\\r\\nprobe01(R) just tip labelled, tried 2 other spots before getting in here, hit the bottom at ~5620 and backed off 20um. looks like I hit a minor blood vessel near the surface, but the bleeding was relatively minimal", "image": "https://dev.alyx.internationalbrainlab.org/uploaded/2020/03/24/Untitled_picture.da188f2c-553c-4e04-879b-c9ea2d1b9a93.png"}'],
     "json": "json string"
 }
 temp_session_nwbfile = {

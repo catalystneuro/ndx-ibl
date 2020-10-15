@@ -30,6 +30,8 @@ def main():
         {'name': 'extended_qc', 'doc': 'extended_qc', 'dtype': 'text', 'quantity': '?'},
         {'name': 'wateradmin_session_related', 'doc': 'wateradmin_session_related', 'dtype': 'text', 'quantity': '?',
          'shape': (None,)},
+        {'name': 'notes', 'doc': 'notes dictionary from sessions file', 'dtype': 'text', 'quantity': '?',
+         'shape': (None,)},
         {'name': 'json', 'doc': 'json', 'dtype': 'text', 'quantity': '?'}
         ]
     ibl_session = NWBGroupSpec(
@@ -99,8 +101,9 @@ def main():
     new_data_types = [ibl_session, ibl_subject, ibl_probes]
 
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'spec'))
-    export_spec(ns_builder, new_data_types, output_dir)
-
+    output_dir2 = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'pynwb','ndx_ibl_metadata', 'spec'))
+    # export_spec(ns_builder, new_data_types, output_dir)
+    export_spec(ns_builder, new_data_types, output_dir2)
 
 if __name__ == "__main__":
     # usage: python create_extension_spec.py

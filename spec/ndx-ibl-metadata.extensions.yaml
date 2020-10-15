@@ -46,6 +46,12 @@ groups:
     - null
     doc: wateradmin_session_related
     quantity: '?'
+  - name: notes
+    dtype: text
+    shape:
+    - null
+    doc: notes dictionary from sessions file
+    quantity: '?'
   - name: json
     dtype: text
     doc: json

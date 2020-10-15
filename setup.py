@@ -22,7 +22,7 @@ except Exception:
 
 setup_args = {
     'name': 'ndx-ibl-metadata',
-    'version': '0.1.0',
+    'version': '0.2.0',
     'description': 'IBL sessions specific metadata',
     'long_description': readme,
     'long_description_content_type': readme_type,
