@@ -8,19 +8,12 @@ import h5py
 import pytest
 
 temp_subject = {
-    "nickname": "NYU-21",
     "url": "https://dev.alyx.internationalbrainlab.org/subjects/437",
     "subject_id": "c7a4c517-61b9-48ec-bfbe-30a8f419b5bb",
     "responsible_user": None,
     "date_of_birth": datetime.datetime(2018, 6, 26, tzinfo=datetime.timezone.utc),
-    "age": "25",
-    "death_date": datetime.datetime(2018, 12, 21, tzinfo=datetime.timezone.utc).strftime('%Y-%m-%d'),
     "species": None,
     "sex": "M",
-    "litter": None,
-    "strain": None,
-    "source": None,
-    "line": None,
     "projects": [
       "ibl_behaviour_pilot_matlabrig"
     ],
@@ -28,10 +21,6 @@ temp_subject = {
       "ibl_neuropixel_brainwide_01",
       "ibl_behaviour_pilot_matlabrig"
     ],
-    "lab": "mainenlab",
-    "genotype": "",
-    "description": "",
-    "alive": False,
     "weight": "29.0",
     "last_water_restriction": None,
     "expected_water": 1.1312,
