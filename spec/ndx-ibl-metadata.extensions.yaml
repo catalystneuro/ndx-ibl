@@ -61,6 +61,10 @@ groups:
   name: subject
   doc: IBL mice data
   datasets:
+  - name: nickname
+    dtype: text
+    doc: name of the mouse
+    quantity: '?'
   - name: url
     dtype: text
     doc: Extra information about the subject can be found at this URL.
