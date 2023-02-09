@@ -73,25 +73,25 @@ groups:
     dtype: text
     shape:
     - null
-    doc: ibl project involving this mouse
+    doc: The main projects this subject was involved in.
     quantity: '?'
   - name: session_projects
     dtype: text
     shape:
     - null
-    doc: session projects
+    doc: All the other projects this subject was involved in.
     quantity: '?'
   - name: last_water_restriction
     dtype: text
-    doc: last water restriction
+    doc: The date of the last water restriction.
     quantity: '?'
   - name: expected_water
     dtype: float
-    doc: expected water
+    doc: The expected amount of water in ml.
     quantity: '?'
   - name: remaining_water
     dtype: float
-    doc: remaining water
+    doc: The remaining amount of water in ml.
     quantity: '?'
 - neurodata_type_def: IblProbes
   neurodata_type_inc: Device
