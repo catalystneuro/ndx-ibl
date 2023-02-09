@@ -61,9 +61,9 @@ groups:
   name: subject
   doc: IBL mice data
   datasets:
-  - name: nickname
+  - name: uuid
     dtype: text
-    doc: name of the mouse
+    doc: The full identifier of the subject from the IBL database.
     quantity: '?'
   - name: url
     dtype: text
