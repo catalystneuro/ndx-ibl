@@ -167,7 +167,7 @@ class TestExtension:
             for j, k in i.items():
                 assert getattr(probe_nwb, j) == k
 
-    @pytest.mark.skip
+    @pytest.mark.skip(reason="Currently failing")
     def test_nwbfileio(self):
         testdir = tempfile.mkdtemp()
         nwbfile = NWBFile(**temp_session_nwbfile)
