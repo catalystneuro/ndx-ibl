@@ -89,11 +89,11 @@ groups:
     dtype: text
     doc: The date of the last water restriction.
     quantity: '?'
-  - name: expected_water
+  - name: expected_water_ml
     dtype: float
     doc: The expected amount of water in ml.
     quantity: '?'
-  - name: remaining_water
+  - name: remaining_water_ml
     dtype: float
     doc: The remaining amount of water in ml.
     quantity: '?'
