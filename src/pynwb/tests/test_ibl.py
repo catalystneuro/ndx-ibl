@@ -23,8 +23,8 @@ temp_subject = {
     ],
     "weight": "29.0",
     "last_water_restriction": None,
-    "expected_water": 1.1312,
-    "remaining_water": 1.1312
+    "expected_water_ml": 1.1312,
+    "remaining_water_ml": 1.1312
   }
 
 temp_sessions = {
