@@ -21,13 +21,13 @@ except Exception:
     readme = ""
 
 setup_args = {
-    'name': 'ndx-ibl-metadata',
-    'version': '0.2.0',
+    'name': 'ndx-ibl',
+    'version': '0.1.0',
     'description': 'IBL sessions specific metadata',
     'long_description': readme,
     'long_description_content_type': readme_type,
-    'author': 'Saksham Sharda',
-    'author_email': 'sxs1790@case.edu',
+    'author': 'Cody Baker',
+    'author_email': 'cody.baker@catalystneuro.com',
     'url': '',
     'license': 'BSD 3-Clause',
     'install_requires': [
@@ -35,9 +35,9 @@ setup_args = {
     ],
     'packages': find_packages('src/pynwb'),
     'package_dir': {'': 'src/pynwb'},
-    'package_data': {'ndx_ibl_metadata': [
-        'spec/ndx-ibl-metadata.namespace.yaml',
-        'spec/ndx-ibl-metadata.extensions.yaml',
+    'package_data': {'ndx_ibl': [
+        'spec/ndx-ibl.namespace.yaml',
+        'spec/ndx-ibl.extensions.yaml',
     ]},
     'classifiers': [
         "Intended Audience :: Developers",
@@ -48,10 +48,10 @@ setup_args = {
 
 
 def _copy_spec_files(project_dir):
-    ns_path = os.path.join(project_dir, 'spec', 'ndx-ibl-metadata.namespace.yaml')
-    ext_path = os.path.join(project_dir, 'spec', 'ndx-ibl-metadata.extensions.yaml')
+    ns_path = os.path.join(project_dir, 'spec', 'ndx-ibl.namespace.yaml')
+    ext_path = os.path.join(project_dir, 'spec', 'ndx-ibl.extensions.yaml')
 
-    dst_dir = os.path.join(project_dir, 'src', 'pynwb', 'ndx_ibl_metadata', 'spec')
+    dst_dir = os.path.join(project_dir, 'src', 'pynwb', 'ndx_ibl', 'spec')
     if not os.path.exists(dst_dir):
         os.mkdir(dst_dir)
 
