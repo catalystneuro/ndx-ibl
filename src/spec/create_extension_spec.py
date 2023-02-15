@@ -8,10 +8,10 @@ from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttrib
 def main():
     ns_builder = NWBNamespaceBuilder(
         doc="""IBL sessions specific metadata""",
-        name="""ndx-ibl-metadata""",
+        name="""ndx-ibl""",
         version="""0.1.0""",
-        author=list(map(str.strip, """Saksham Sharda""".split(','))),
-        contact=list(map(str.strip, """sxs1790@case.edu""".split(',')))
+        author=list(map(str.strip, """Cody Baker""".split(','))),
+        contact=list(map(str.strip, """cody.baker@catlystneuro.com""".split(',')))
     )
 
     ns_builder.include_type('LabMetaData', namespace='core')
@@ -101,7 +101,7 @@ def main():
     new_data_types = [ibl_session, ibl_subject, ibl_probes]
 
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'spec'))
-    output_dir2 = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'pynwb','ndx_ibl_metadata', 'spec'))
+    output_dir2 = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'pynwb','ndx_ibl', 'spec'))
     # export_spec(ns_builder, new_data_types, output_dir)
     export_spec(ns_builder, new_data_types, output_dir2)
 
