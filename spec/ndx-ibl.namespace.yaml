@@ -1,15 +1,15 @@
 namespaces:
 - author:
-  - Saksham Sharda
+  - Cody Baker
   contact:
-  - sxs1790@case.edu
+  - cody.baker@catalystneuro.com
   doc: IBL sessions specific metadata
-  name: ndx-ibl-metadata
+  name: ndx-ibl
   schema:
   - namespace: core
     neurodata_types:
     - LabMetaData
     - Subject
     - Device
-  - source: ndx-ibl-metadata.extensions.yaml
+  - source: ndx-ibl.extensions.yaml
   version: 0.1.0
