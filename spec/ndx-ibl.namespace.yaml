@@ -2,7 +2,7 @@ namespaces:
 - author:
   - Cody Baker
   contact:
-  - cody.baker@catalystneuro.com
+  - cody.baker@catlystneuro.com
   doc: IBL sessions specific metadata
   name: ndx-ibl
   schema:
@@ -11,5 +11,7 @@ namespaces:
     - LabMetaData
     - Subject
     - Device
+    - DynamicTable
+    - VectorData
   - source: ndx-ibl.extensions.yaml
-  version: 0.1.0
+  version: 0.2.0

@@ -60,42 +60,87 @@ groups:
   neurodata_type_inc: Subject
   name: subject
   doc: IBL mice data
+  attributes:
+  - name: alive
+    dtype: bool
+    doc: alive/dead
+    required: false
   datasets:
   - name: uuid
     dtype: text
-    doc: The full identifier of the subject from the IBL database.
+    doc: unique identifier of the subject in Alyx database
+    quantity: '?'
+  - name: nickname
+    dtype: text
+    doc: name of the mouse
     quantity: '?'
   - name: url
     dtype: text
-    doc: Extra information about the subject can be found at this URL.
+    doc: url location of the subject metadata
     quantity: '?'
   - name: responsible_user
     dtype: text
-    doc: User ID in charge of the subject.
+    doc: user in charge of the subject
+    quantity: '?'
+  - name: death_date
+    dtype: text
+    doc: date of sacrifice of the mouse
+    quantity: '?'
+  - name: litter
+    dtype: text
+    doc: litter of the mouse
+    quantity: '?'
+  - name: strain
+    dtype: text
+    doc: strain of mouse
+    quantity: '?'
+  - name: source
+    dtype: text
+    doc: source
+    quantity: '?'
+  - name: line
+    dtype: text
+    doc: line of this mouse
     quantity: '?'
   - name: projects
     dtype: text
     shape:
     - null
-    doc: The main projects this subject was involved in.
+    doc: ibl project involving this mouse
     quantity: '?'
   - name: session_projects
     dtype: text
     shape:
     - null
-    doc: All the other projects this subject was involved in.
+    doc: session projects
+    quantity: '?'
+  - name: lab
+    dtype: text
+    doc: lab
     quantity: '?'
   - name: last_water_restriction
     dtype: text
-    doc: The date of the last water restriction.
+    doc: last water restriction
     quantity: '?'
   - name: expected_water_ml
     dtype: float
-    doc: The expected amount of water in ml.
+    doc: expected water in milliliters
     quantity: '?'
   - name: remaining_water_ml
     dtype: float
-    doc: The remaining amount of water in ml.
+    doc: remaining water in milliliters
+    quantity: '?'
+  - name: weighings
+    dtype: text
+    shape:
+    - null
+    doc: weighings
+    quantity: '?'
+  - name: water_administrations
+    dtype: text
+    shape:
+    - null
+    doc: water_administrations
     quantity: '?'
 - neurodata_type_def: IblProbes
   neurodata_type_inc: Device
@@ -115,3 +160,96 @@ groups:
     - null
     doc: dict containing trajectory info for each probe
     quantity: '?'
+- neurodata_type_def: IblProbeInsertionTrajectoryTable
+  neurodata_type_inc: DynamicTable
+  doc: 'Probe insertion trajectory parameters for a single probe. Each row represents
+    a trajectory estimate from a different provenance level, progressing from theoretical
+    to validated: Planned (pre-surgical target), Micro-manipulator (recorded during
+    surgery), Histology track (traced from post-mortem brain slices), and Ephys aligned
+    histology track (histology refined using electrophysiology). The coordinate system
+    is bregma-centered with units in micrometers: x is ML (medio-lateral, positive=right),
+    y is AP (anterior-posterior, positive=anterior), z is DV (dorso-ventral, positive=dorsal).
+    Depth is the distance along the probe axis from brain surface to tip. Angles define
+    insertion direction: theta is polar angle from vertical (0=down, 90=horizontal),
+    phi is azimuth from AP axis (0=anterior, 90=left). Roll defines electrode-facing
+    direction.'
+  datasets:
+  - name: device
+    neurodata_type_inc: VectorData
+    dtype:
+      target_type: Device
+      reftype: object
+    doc: Reference to the Device object (e.g., NeuropixelsProbe) being 
+      localized. This links the trajectory to the actual probe device in the NWB
+      file.
+  - name: x
+    neurodata_type_inc: VectorData
+    dtype: float
+    doc: Entry point ML (medio-lateral) coordinate in micrometers, 
+      bregma-centered. Positive values are right of midline, negative are left. 
+      For histology-derived trajectories, computed from the intersection of the 
+      fitted probe track with brain surface.
+  - name: y
+    neurodata_type_inc: VectorData
+    dtype: float
+    doc: Entry point AP (anterior-posterior) coordinate in micrometers, 
+      bregma-centered. Positive values are anterior to bregma, negative are 
+      posterior. For histology-derived trajectories, computed from the 
+      intersection of the fitted probe track with brain surface.
+  - name: z
+    neurodata_type_inc: VectorData
+    dtype: float
+    doc: Entry point DV (dorso-ventral) coordinate in micrometers, 
+      bregma-centered. Typically negative values (below bregma/brain surface). 
+      For histology-derived trajectories, computed from the intersection of the 
+      fitted probe track with brain surface.
+  - name: depth_um
+    neurodata_type_inc: VectorData
+    dtype: float
+    doc: Insertion depth in micrometers, measured along the probe axis from the 
+      brain surface entry point to the probe tip. For histology-derived 
+      trajectories, computed as the Euclidean distance between entry point and 
+      the deepest traced point projected onto the fitted trajectory line.
+  - name: theta
+    neurodata_type_inc: VectorData
+    dtype: float
+    doc: 'Polar angle in degrees measuring probe tilt from vertical. 0 degrees means
+      straight down into brain (along DV axis), 90 degrees means horizontal. For histology-derived
+      trajectories, computed using spherical coordinates: theta = arccos(dz/depth)
+      where dz is the vertical component of the entry-to-tip vector.'
+  - name: phi
+    neurodata_type_inc: VectorData
+    dtype: float
+    doc: 'Azimuth angle in degrees defining the direction of probe tilt in the horizontal
+      plane. Measured counter-clockwise from the positive AP axis when viewed from
+      above (0 = tilted anteriorly, 90 = tilted left, 180 = tilted posteriorly). For
+      histology-derived trajectories, computed using spherical coordinates: phi =
+      arctan2(dy, dx).'
+  - name: roll
+    neurodata_type_inc: VectorData
+    dtype: float
+    doc: Probe rotation around its own longitudinal axis in degrees. Determines 
+      which direction the electrode sites face. A value of 0 typically indicates
+      electrodes facing anterior.
+    quantity: '?'
+  - name: provenance
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: "Method used to determine this trajectory estimate, representing increasing
+      confidence: 'Planned' (pre-surgical target coordinates from experimental design),
+      'Micro-manipulator' (coordinates recorded from stereotaxic manipulator during
+      surgery), 'Histology track' (traced from post-mortem brain slices by fitting
+      a line through manually picked points), 'Ephys aligned histology track' (histology
+      refined by aligning detected unit depths with the histology trace)."
+    quantity: '?'
+- neurodata_type_def: IblProbeInsertionTrajectories
+  neurodata_type_inc: LabMetaData
+  name: ibl_probe_insertion_trajectories
+  doc: Container for IBL probe insertion trajectory information stored as lab 
+    metadata. Contains one IblProbeInsertionTrajectoryTable per probe, with 
+    insertion geometry parameters. Each table is named after the probe (e.g., 
+    "Probe00", "Probe01").
+  groups:
+  - neurodata_type_inc: IblProbeInsertionTrajectoryTable
+    doc: Table of probe insertion trajectory parameters for a single probe
+    quantity: '*'
