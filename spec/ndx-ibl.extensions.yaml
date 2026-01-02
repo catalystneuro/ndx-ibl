@@ -166,13 +166,15 @@ groups:
     a trajectory estimate from a different provenance level, progressing from theoretical
     to validated: Planned (pre-surgical target), Micro-manipulator (recorded during
     surgery), Histology track (traced from post-mortem brain slices), and Ephys aligned
-    histology track (histology refined using electrophysiology). The coordinate system
-    is bregma-centered with units in micrometers: x is ML (medio-lateral, positive=right),
-    y is AP (anterior-posterior, positive=anterior), z is DV (dorso-ventral, positive=dorsal).
-    Depth is the distance along the probe axis from brain surface to tip. Angles define
-    insertion direction: theta is polar angle from vertical (0=down, 90=horizontal),
-    phi is azimuth from AP axis (0=anterior, 90=left). Roll defines electrode-facing
-    direction.'
+    histology track (histology refined using electrophysiology). Insertion point coordinates
+    (x, y, z) are bregma-centered with units in micrometers: x is ML (medio-lateral,
+    positive=right), y is AP (anterior-posterior, positive=anterior), z is DV (dorso-ventral,
+    positive=dorsal). Angles characterize the spatial orientation of the probe: theta
+    is polar angle from vertical (0=straight down into brain, 90=horizontal), phi
+    is azimuth angle from the AP axis (0=tilted anteriorly, 90=tilted left, 180=posteriorly),
+    roll defines the electrode-facing direction (rotation around probe axis). Depth
+    is the insertion distance along the probe axis from the brain surface entry point
+    to the probe tip.'
   datasets:
   - name: device
     neurodata_type_inc: VectorData
@@ -185,46 +187,52 @@ groups:
   - name: x
     neurodata_type_inc: VectorData
     dtype: float
-    doc: Entry point ML (medio-lateral) coordinate in micrometers, 
+    doc: Insertion point ML (medio-lateral) coordinate in micrometers, 
       bregma-centered. Positive values are right of midline, negative are left. 
-      For histology-derived trajectories, computed from the intersection of the 
-      fitted probe track with brain surface.
+      This is where the probe enters the brain surface. For histology-derived 
+      trajectories, computed from the intersection of the fitted probe track 
+      with brain surface.
   - name: y
     neurodata_type_inc: VectorData
     dtype: float
-    doc: Entry point AP (anterior-posterior) coordinate in micrometers, 
+    doc: Insertion point AP (anterior-posterior) coordinate in micrometers, 
       bregma-centered. Positive values are anterior to bregma, negative are 
-      posterior. For histology-derived trajectories, computed from the 
-      intersection of the fitted probe track with brain surface.
+      posterior. This is where the probe enters the brain surface. For 
+      histology-derived trajectories, computed from the intersection of the 
+      fitted probe track with brain surface.
   - name: z
     neurodata_type_inc: VectorData
     dtype: float
-    doc: Entry point DV (dorso-ventral) coordinate in micrometers, 
-      bregma-centered. Typically negative values (below bregma/brain surface). 
-      For histology-derived trajectories, computed from the intersection of the 
+    doc: Insertion point DV (dorso-ventral) coordinate in micrometers, 
+      bregma-centered. Typically negative values (brain surface is below bregma 
+      skull landmark level). Values vary with AP position due to brain surface 
+      curvature. This is where the probe enters the brain surface. For 
+      histology-derived trajectories, computed from the intersection of the 
       fitted probe track with brain surface.
   - name: depth_um
     neurodata_type_inc: VectorData
     dtype: float
     doc: Insertion depth in micrometers, measured along the probe axis from the 
-      brain surface entry point to the probe tip. For histology-derived 
-      trajectories, computed as the Euclidean distance between entry point and 
-      the deepest traced point projected onto the fitted trajectory line.
+      brain surface insertion point to the probe tip. This indicates how far the
+      probe travels into the brain. For histology-derived trajectories, computed
+      as the Euclidean distance between entry point and the deepest traced point
+      projected onto the fitted trajectory line.
   - name: theta
     neurodata_type_inc: VectorData
     dtype: float
     doc: 'Polar angle in degrees measuring probe tilt from vertical. 0 degrees means
-      straight down into brain (along DV axis), 90 degrees means horizontal. For histology-derived
-      trajectories, computed using spherical coordinates: theta = arccos(dz/depth)
-      where dz is the vertical component of the entry-to-tip vector.'
+      the probe is inserted straight down into the brain (along DV axis), 90 degrees
+      means horizontal. For histology-derived trajectories, computed using spherical
+      coordinates: theta = arccos(dz/depth) where dz is the vertical component of
+      the entry-to-tip vector.'
   - name: phi
     neurodata_type_inc: VectorData
     dtype: float
     doc: 'Azimuth angle in degrees defining the direction of probe tilt in the horizontal
       plane. Measured counter-clockwise from the positive AP axis when viewed from
-      above (0 = tilted anteriorly, 90 = tilted left, 180 = tilted posteriorly). For
-      histology-derived trajectories, computed using spherical coordinates: phi =
-      arctan2(dy, dx).'
+      above: 0 = tilted anteriorly, 90 = tilted left, 180 = tilted posteriorly, 270
+      = tilted right. For histology-derived trajectories, computed using spherical
+      coordinates: phi = arctan2(dy, dx).'
   - name: roll
     neurodata_type_inc: VectorData
     dtype: float
