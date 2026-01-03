@@ -110,9 +110,9 @@ def main():
             'Planned (pre-surgical target), Micro-manipulator (recorded during surgery), '
             'Histology track (traced from post-mortem brain slices), and Ephys aligned histology track '
             '(histology refined using electrophysiology). '
-            'Insertion point coordinates (x, y, z) are bregma-centered with units in micrometers: '
-            'x is ML (medio-lateral, positive=right), y is AP (anterior-posterior, positive=anterior), '
-            'z is DV (dorso-ventral, positive=dorsal). '
+            'Insertion point coordinates (ml, ap, dv) are bregma-centered with units in micrometers: '
+            'ml is medio-lateral (positive=right), ap is anterior-posterior (positive=anterior), '
+            'dv is dorso-ventral (positive=dorsal). '
             'Angles characterize the spatial orientation of the probe: '
             'theta is polar angle from vertical (0=straight down into brain, 90=horizontal), '
             'phi is azimuth angle from the AP axis (0=tilted anteriorly, 90=tilted left, 180=posteriorly), '
@@ -127,28 +127,49 @@ def main():
                     "This links the trajectory to the actual probe device in the NWB file."
             ),
             NWBDatasetSpec(
-                name='x',
+                name='pid',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc="Probe insertion UUID from Alyx database. This unique identifier links the trajectory "
+                    "to the specific probe insertion record in the IBL database, enabling traceability "
+                    "of all probe-related metadata and quality control information.",
+                quantity='?'
+            ),
+            NWBDatasetSpec(
+                name='trajectory_source',
+                neurodata_type_inc='VectorData',
+                dtype='text',
+                doc="Source of this trajectory estimate, representing increasing confidence and validation: "
+                    "'Planned' (pre-surgical target coordinates from experimental design), "
+                    "'Micro-manipulator' (coordinates recorded from stereotaxic manipulator during surgery), "
+                    "'Histology track' (traced from post-mortem brain slices by fitting a line through "
+                    "manually picked points), 'Ephys aligned histology track' (histology refined by aligning "
+                    "detected unit depths with the histology trace).",
+                quantity='?'
+            ),
+            NWBDatasetSpec(
+                name='ml',
                 neurodata_type_inc='VectorData',
                 dtype='float',
-                doc="Insertion point ML (medio-lateral) coordinate in micrometers, bregma-centered. "
+                doc="Insertion point medio-lateral coordinate in micrometers, bregma-centered. "
                     "Positive values are right of midline, negative are left. This is where the probe "
                     "enters the brain surface. For histology-derived trajectories, computed from the "
                     "intersection of the fitted probe track with brain surface."
             ),
             NWBDatasetSpec(
-                name='y',
+                name='ap',
                 neurodata_type_inc='VectorData',
                 dtype='float',
-                doc="Insertion point AP (anterior-posterior) coordinate in micrometers, bregma-centered. "
+                doc="Insertion point anterior-posterior coordinate in micrometers, bregma-centered. "
                     "Positive values are anterior to bregma, negative are posterior. This is where the probe "
                     "enters the brain surface. For histology-derived trajectories, computed from the "
                     "intersection of the fitted probe track with brain surface."
             ),
             NWBDatasetSpec(
-                name='z',
+                name='dv',
                 neurodata_type_inc='VectorData',
                 dtype='float',
-                doc="Insertion point DV (dorso-ventral) coordinate in micrometers, bregma-centered. "
+                doc="Insertion point dorso-ventral coordinate in micrometers, bregma-centered. "
                     "Typically negative values (brain surface is below bregma skull landmark level). "
                     "Values vary with AP position due to brain surface curvature. This is where the probe "
                     "enters the brain surface. For histology-derived trajectories, computed from the "
@@ -187,18 +208,6 @@ def main():
                 dtype='float',
                 doc="Probe rotation around its own longitudinal axis in degrees. Determines which direction "
                     "the electrode sites face. A value of 0 typically indicates electrodes facing anterior.",
-                quantity='?'
-            ),
-            NWBDatasetSpec(
-                name='provenance',
-                neurodata_type_inc='VectorData',
-                dtype='text',
-                doc="Method used to determine this trajectory estimate, representing increasing confidence: "
-                    "'Planned' (pre-surgical target coordinates from experimental design), "
-                    "'Micro-manipulator' (coordinates recorded from stereotaxic manipulator during surgery), "
-                    "'Histology track' (traced from post-mortem brain slices by fitting a line through "
-                    "manually picked points), 'Ephys aligned histology track' (histology refined by aligning "
-                    "detected unit depths with the histology trace).",
                 quantity='?'
             ),
         ]
