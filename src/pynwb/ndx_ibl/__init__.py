@@ -22,6 +22,7 @@ IblSubject = get_class('IblSubject', 'ndx-ibl')
 IblProbes = get_class('IblProbes', 'ndx-ibl')
 IblProbeInsertionTrajectoryTable = get_class('IblProbeInsertionTrajectoryTable', 'ndx-ibl')
 IblProbeInsertionTrajectories = get_class('IblProbeInsertionTrajectories', 'ndx-ibl')
+IblMetadata = get_class('IblMetadata', 'ndx-ibl')
 
 # Remove helper imports from the package namespace
 del load_namespaces, get_class, os, files

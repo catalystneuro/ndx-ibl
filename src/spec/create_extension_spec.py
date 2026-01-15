@@ -10,9 +10,9 @@ def main():
     ns_builder = NWBNamespaceBuilder(
         doc="""IBL sessions specific metadata""",
         name="""ndx-ibl""",
-        version="""0.2.0""",
-        author=list(map(str.strip, """Cody Baker""".split(','))),
-        contact=list(map(str.strip, """cody.baker@catlystneuro.com""".split(',')))
+        version="""0.3.0""",
+        author=list(map(str.strip, """Cody Baker, Heberto Mayorquin""".split(','))),
+        contact=list(map(str.strip, """cody.baker@catalystneuro.com, h.mayorquin@gmail.com""".split(',')))
     )
 
     ns_builder.include_type('LabMetaData', namespace='core')
@@ -232,7 +232,26 @@ def main():
         ]
     )
 
-    new_data_types = [ibl_session, ibl_subject, ibl_probes, trajectory_table, probe_trajectories]
+    # IblMetadata - LabMetaData for IBL-specific session metadata including data revision
+    # Consolidated from ndx-ibl-bwm extension
+    ibl_metadata = NWBGroupSpec(
+        name='ibl_metadata',
+        neurodata_type_def='IblMetadata',
+        neurodata_type_inc='LabMetaData',
+        doc='IBL-specific session metadata stored as lab metadata. Contains revision information '
+            'for tracking which version of processed data was used for conversion.',
+        datasets=[
+            NWBDatasetSpec(
+                name='revision',
+                dtype='text',
+                doc='Data revision identifier, typically specified as a date (e.g., "2025-05-06"). '
+                    'Used to track which version of processed IBL data was used for this conversion.',
+                quantity='?'
+            )
+        ]
+    )
+
+    new_data_types = [ibl_session, ibl_subject, ibl_probes, trajectory_table, probe_trajectories, ibl_metadata]
 
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'spec'))
     export_spec(ns_builder, new_data_types, output_dir)

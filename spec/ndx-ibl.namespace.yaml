@@ -1,8 +1,10 @@
 namespaces:
 - author:
   - Cody Baker
+  - Heberto Mayorquin
   contact:
-  - cody.baker@catlystneuro.com
+  - cody.baker@catalystneuro.com
+  - h.mayorquin@gmail.com
   doc: IBL sessions specific metadata
   name: ndx-ibl
   schema:
@@ -14,4 +16,4 @@ namespaces:
     - DynamicTable
     - VectorData
   - source: ndx-ibl.extensions.yaml
-  version: 0.2.0
+  version: 0.3.0

@@ -4,9 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ndx-ibl"
-version = "0.2.0"
+version = "0.3.0"
 authors = [
     { name="Cody Baker", email="cody.baker@catalystneuro.com" },
+    { name="Heberto Mayorquin", email="h.mayorquin@gmail.com" },
 ]
 description = "IBL sessions specific metadata"
 readme = "README.md"

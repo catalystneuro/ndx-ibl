@@ -269,3 +269,16 @@ groups:
   - neurodata_type_inc: IblProbeInsertionTrajectoryTable
     doc: Table of probe insertion trajectory parameters for a single probe
     quantity: '*'
+- neurodata_type_def: IblMetadata
+  neurodata_type_inc: LabMetaData
+  name: ibl_metadata
+  doc: IBL-specific session metadata stored as lab metadata. Contains revision 
+    information for tracking which version of processed data was used for 
+    conversion.
+  datasets:
+  - name: revision
+    dtype: text
+    doc: Data revision identifier, typically specified as a date (e.g., 
+      "2025-05-06"). Used to track which version of processed IBL data was used 
+      for this conversion.
+    quantity: '?'
